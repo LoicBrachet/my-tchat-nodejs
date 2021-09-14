@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" /> -->
+    <link rel="stylesheet" href="style.css" media="all">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet">
+    <title>Crypto Chat</title>
+
+</head>
+
+<body>
+    <nav style='text-align:center'>
+        <ul>
+            <li><a href="http://127.0.0.1:8000/">Home</a></li>
+            <li><a href="http://127.0.0.1:8000/actualites/">Listes des Posts</a></li>
+            <li><a href="http://127.0.0.1:8000/actualites/article/ajouter">Ecrire un post</a></li>
+            <li><a href="http://localhost/SONDAGE/">Sondage</a></li>
+            <li><a href="http://localhost:3000" target="_blank">Crypto Chat</a></li>
+        </ul>
+    </nav>
+    <h1 style='text-align:center'><a href="http://127.0.0.1:8000/" style="text-decoration: none;color:black;">Crypto blog</a><img src="http://localhost:3000/bitcoin.png" class="img"></h1>
+    <ul id="messages"></ul>
+    <ul id="connect"></ul>
+    <div id="typing"></div>
+    <form id="form" action="">
+        <input id="name" autocomplete="off" />
+        <input id="input" autocomplete="off" /><button>Send</button>
+    </form>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        let socket = io();
+
+        let messages = document.getElementById('messages');
+        let form = document.getElementById('form');
+        let input = document.getElementById('input');
+        let name = document.getElementById('name');
+        let connect = document.getElementById('connect');
+        let typingTimer;
+        let isTyping = false;
+        let typing = document.getElementById('typing');
+
+
+
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            if (input.value && name.value) {
+                socket.emit('chat message', name.value + " : " + input.value);
+                document.getElementById('input').value = " ";
+            }
+        });
+
+        input.addEventListener('keydown', function(tpg) {
+            clearTimeout(typingTimer);
+            if (!isTyping) {
+                socket.emit('typing', '... ... ...');
+                isTyping = true;
+            }
+        })
+
+        input.addEventListener('keyup', function(tpg) {
+            clearTimeout(typingTimer);
+            if (isTyping) {
+                socket.emit('typing', '');
+                isTyping = false;
+            }
+        }, 500);
+
+        socket.on('new', function(msg) {
+            const item2 = document.createElement('li');
+            item2.textContent = msg;
+            connect.appendChild(item2);
+            window.scrollTo(0, document.body.scrollHeight);
+        });
+
+
+        socket.on('typing', function(tpg) {
+            const item3 = document.getElementById('typing');
+            item3.innerHTML = tpg;
+
+        });
+
+        socket.on('received_message', function(msg) {
+            const item = document.createElement('li');
+            item.textContent = msg;
+            messages.appendChild(item);
+            window.scrollTo(0, document.body.scrollHeight);
+        });
+    </script>
+</body>
+
+</html>

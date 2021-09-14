@@ -1,0 +1,145 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Open sans', sans-serif;
+    box-sizing: border-box;
+}
+
+#typing {
+    position: fixed;
+    left: 20px;
+    bottom: 65px;
+}
+
+#form {
+    background: rgba(0, 0, 0, 0.15);
+    padding: 0.25rem;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    height: 3rem;
+    box-sizing: border-box;
+    backdrop-filter: blur(10px);
+}
+
+#input {
+    border: none;
+    padding: 0 1rem;
+    flex-grow: 1;
+    border-radius: 2rem;
+    margin: 0.25rem;
+}
+
+#name {
+    border-radius: 2rem;
+    border: none;
+    margin: 0.25rem;
+}
+
+#input:focus {
+    outline: none;
+}
+
+#form>button {
+    background: #333;
+    border: none;
+    padding: 0 1rem;
+    margin: 0.25rem;
+    border-radius: 3px;
+    outline: none;
+    color: #fff;
+}
+
+#connect {
+    padding: 0.25rem;
+    position: fixed;
+    top: 50px;
+    right: 0px;
+    height: 3rem;
+    box-sizing: border-box;
+}
+
+#connect {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+#connect>li {
+    padding: 0.5rem 1rem;
+}
+
+#connect>li:nth-child(odd) {
+    background: #efefef;
+}
+
+#messages {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    width: 50%;
+    height: 90%;
+}
+
+#messages>li {
+    padding: 0.5rem 1rem;
+}
+
+#messages>li:nth-child(odd) {
+    background: #efefef;
+}
+
+nav {
+    width: 100%;
+    margin: 0px auto 22px;
+    background-color: white;
+    position: sticky;
+    top: 0px;
+}
+
+nav ul {
+    display: inline-block;
+    width: 100%;
+    list-style-type: none;
+    background-color: #0F2027;
+    background: linear-gradient(to bottom, #2C5364, #203A43, #0F2027);
+}
+
+nav li {
+    float: left;
+    width: 19%;
+    text-align: center;
+}
+
+nav a {
+    display: block;
+    text-decoration: none;
+    color: white;
+    border-bottom: 2px solid transparent;
+    padding: 10px 0px;
+    font-size: 0.88em;
+}
+
+nav a:hover {
+    color: orange;
+    text-decoration: none;
+    border-bottom: 2px solid orange;
+}
+
+.img {
+    width: 3%;
+    height: 3%;
+    margin-left: 0%;
+}
+
+h1 {
+    font-size: 2.2em;
+}
+
+@media screen and (max-width: 800px) {
+    #connect {
+        display: none;
+    }
+}
